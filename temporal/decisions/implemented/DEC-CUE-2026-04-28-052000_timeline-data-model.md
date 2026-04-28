@@ -102,7 +102,9 @@ CREATE TABLE cue.timeline_clips (
     in_point_ms             BIGINT NOT NULL DEFAULT 0,
     out_point_ms            BIGINT NOT NULL,
     cut_type                TEXT NOT NULL DEFAULT 'hard', -- 'hard' | 'j_cut' | 'l_cut'
-    audio_level             NUMERIC(4,3) NOT NULL DEFAULT 1.0,
+    -- NOTE: audio_level column was removed by DEC-CUE-2026-04-28-080000.
+    -- Audio level (and all transforms) are stored in cue.clip_keyframes instead.
+    -- Do NOT add audio_level here when deploying this schema.
     created_at              TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at              TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -277,6 +279,7 @@ No significant problems.
 
 **Decisions:**
 - Supersedes: none (first decision)
+- **Partially superseded by:** DEC-CUE-2026-04-28-080000 — removes `audio_level` from `timeline_clips` and introduces `cue.clip_keyframes` for all per-clip property values (transform + audio)
 
 ---
 
