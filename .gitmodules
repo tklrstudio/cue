@@ -1,0 +1,3 @@
+[submodule ".living-systems"]
+	path = .living-systems
+	url = https://github.com/tklrstudio/living-systems.git
