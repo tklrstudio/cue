@@ -149,6 +149,27 @@ Contracts are versioned. Breaking changes require a decision doc.
 
 ---
 
+## Build Estimate (CC)
+
+Estimated 2026-04-28. Based on observed Blacksmith task velocity (~5–9 min/task, ~$1–3/task) and the 7–10x compression ratio established in ACH-CG-2026-03-04-220000.
+
+| Layer | Tasks (est.) | Calendar time (est.) |
+|-------|-------------|----------------------|
+| Schema + SQLAlchemy models + CRUD endpoints | 4–6 | ~0.5 days |
+| Cut screen (library browser, HLS playback, bins) | 5–8 | ~1 day |
+| Edit screen — timeline canvas (render, drag, trim, snap, zoom, multi-select) | 10–15 | 2–3 days |
+| Keyframes UI + Speed Editor Phase 1 | 3–4 | ~0.5 days |
+| Render pipeline (ffmpeg, B2, audio mix) | 4–6 | ~1 day |
+| **Total** | **26–39** | **~5–6 days** |
+
+**Estimated cost:** $80–150 USD in Blacksmith tasks. Interactive design sessions are the larger cost driver.
+
+**Key uncertainty:** Edit screen canvas — browser UI requires test → adjust feedback loops that each generate 1–2 additional tasks. If the DOM renderer hits performance limits, switching to `<canvas>` adds ~1 day.
+
+See `temporal/BUILD_TRACKING.md` for actuals as work progresses.
+
+---
+
 ## Guiding Principle
 
 *The edit begins when the intelligence ends.*
