@@ -292,6 +292,56 @@ Nudge keys (`←` / `→` etc.) apply to all selected clips simultaneously — s
 
 ---
 
+## Undo / redo
+
+### Model — command pattern
+
+Every edit operation is a **command object** with `execute()` and `undo()` methods. Commands are pushed onto an undo stack on execution; undo pops and calls `undo()`; redo pushes onto a redo stack.
+
+```
+undo stack: [cmd1, cmd2, cmd3]  ← top = most recent
+redo stack: []
+```
+
+Any new command clears the redo stack (standard NLE behaviour — branching history is out of scope).
+
+### Commands (one per operation)
+
+| Operation | Command | undo() reversal |
+|-----------|---------|-----------------|
+| Move clip | `MoveClipCommand(clip_id, old_pos, new_pos)` | restore `old_pos` |
+| Trim head | `TrimHeadCommand(clip_id, old_in, old_pos, new_in, new_pos)` | restore both |
+| Trim tail | `TrimTailCommand(clip_id, old_out, new_out)` | restore `old_out` |
+| Place clip | `PlaceClipCommand(clip_id, track, pos)` | delete the placed clip |
+| Delete clip | `DeleteClipCommand(clip_data)` | re-insert from saved data |
+| Set keyframe | `SetKeyframeCommand(clip_id, property, time_ms, old_value, new_value)` | restore `old_value` |
+| Group move | `GroupMoveCommand([(clip_id, old_pos, new_pos), ...])` | restore all positions |
+
+All commands write their changes to the database immediately on `execute()`. `undo()` writes the reverse. There is no "pending state" — the timeline is always in a valid database state.
+
+### Stack depth
+
+Maximum 100 commands. When the stack exceeds 100, drop the oldest entry. This bound is enforced at push time.
+
+### Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| `Cmd + Z` | Undo |
+| `Cmd + Shift + Z` | Redo |
+
+### What is NOT undoable
+
+- Navigation (playhead moves, zoom changes, scroll position) — these are UI state, not edit decisions
+- Bin management operations — handled outside the timeline command stack
+- Render jobs — renders are not reversed; delete the output manually
+
+### Speed Editor
+
+`UNDO` and `REDO` buttons on the Speed Editor call the same handlers as the keyboard shortcuts.
+
+---
+
 ## Speed Editor integration
 
 See `DEC-CUE-2026-04-28-090000_speed-editor.md` for the jog wheel and button mapping that drives these same operations via hardware.

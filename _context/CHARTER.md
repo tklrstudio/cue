@@ -84,7 +84,7 @@ Cue (editor)
 
 **Timeline data model:** Two layers:
 1. **Asset references** — B2 key, HLS manifest URL, source system, all analysis metadata (tags, timestamps, quality scores, transcripts) passed in by the consumer adapter
-2. **Edit decisions** — in/out points, track placement, cut type (hard/J/L), audio levels, transitions — owned entirely by Cue
+2. **Edit decisions** — in/out points, track placement, cut type (hard/J/L), clip keyframes (position, rotation, scale, audio level) — owned entirely by Cue
 
 ---
 
