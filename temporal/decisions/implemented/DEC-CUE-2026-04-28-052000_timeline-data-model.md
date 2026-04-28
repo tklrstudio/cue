@@ -1,7 +1,7 @@
 # Decision: Timeline Data Model
 
 **Created:** 2026-04-28
-**Decision Status:** Approved
+**Decision Status:** Implemented
 **Decision ID:** DEC-CUE-2026-04-28-052000
 **Workspace:** cue
 **Branch:** Operations
