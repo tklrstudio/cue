@@ -1,1 +1,3 @@
-Read `GLOBAL_AI_INSTRUCTIONS.md` (or `.living-systems/GLOBAL_AI_INSTRUCTIONS.md`) and `LOCAL_AI_INSTRUCTIONS.md` for the context-loading sequence, pre-flight checks, and working rules for this repo.
+This file auto-loads for Claude Code.
+
+Use `AGENTS.md` as the neutral instruction entrypoint for this repo, then apply any machine-level Claude setup that is available in the current environment.

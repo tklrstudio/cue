@@ -18,7 +18,7 @@ Intelligent clip editor — connected media library and NLE timeline for TKLR co
 **Workspace code:** CUE
 **Decision prefix:** DEC-CUE
 **Discussion prefix:** DISC-CUE
-**Branch strategy:** main-only
+branch-strategy: main-only
 
 ---
 
