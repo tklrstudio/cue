@@ -56,3 +56,16 @@ enqueue_task(task_name=..., spec_path=..., repo=..., spec_content="<brief text>"
 ---
 
 **End Local AI Instructions — Cue**
+
+---
+
+## Merge Strategy
+
+**Default: push directly to `main`.** Do not open a pull request unless a specific reason applies.
+
+Open a PR when:
+- The change is large or cross-cutting and benefits from a diff review before merge
+- The brief or task explicitly requests a PR for audit or traceability purposes
+- A schema or API contract change warrants a review gate before landing
+
+When a PR is appropriate, say so explicitly and give a reason. The default assumption for any task that does not mention PRs is: commit and push directly to `main`.
