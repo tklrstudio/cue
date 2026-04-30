@@ -61,11 +61,12 @@ enqueue_task(task_name=..., spec_path=..., repo=..., spec_content="<brief text>"
 
 ## Merge Strategy
 
-**Default: push directly to `main`.** Do not open a pull request unless a specific reason applies.
+**This is a main-only repo. There are no persistent feature branches.**
 
-Open a PR when:
-- The change is large or cross-cutting and benefits from a diff review before merge
-- The brief or task explicitly requests a PR for audit or traceability purposes
-- A schema or API contract change warrants a review gate before landing
+- **Always commit and push directly to `main`.** Never create a branch unless the brief explicitly instructs it.
+- **Never reuse an existing remote branch.** If you find yourself on a branch (e.g. from a previous session or a `git checkout`), switch back to `main` before committing: `git checkout main && git pull`.
+- **Do not open a pull request** unless the brief's Scope section explicitly says to and gives a reason.
 
-When a PR is appropriate, say so explicitly and give a reason. The default assumption for any task that does not mention PRs is: commit and push directly to `main`.
+The only exception: schema changes at Structural or Breaking tier may use a PR as a review gate — but only when the brief says so explicitly.
+
+The default assumption for any brief that does not mention branches or PRs: commit and push directly to `main`.
