@@ -4,8 +4,8 @@
 **Status:** Canonical
 **Scope:** This workspace only
 **Created:** 2026-04-28
-**Last Updated:** 2026-04-28
-**Version:** 1.0.0
+**Last Updated:** 2026-05-04
+**Version:** 1.0.1
 
 All global rules are in `.living-systems/GLOBAL_AI_INSTRUCTIONS.md`. Read that file first. This file adds workspace-specific context only.
 
@@ -52,6 +52,18 @@ If the brief isn't on GitHub yet, pass `spec_content` inline:
 ```
 enqueue_task(task_name=..., spec_path=..., repo=..., spec_content="<brief text>")
 ```
+
+### ⚠️ repo slug — always use the full `org/repo` format
+
+The `repo` parameter **must always be the full GitHub slug**, e.g. `tklrstudio/cue`.
+
+**Never pass a bare repo name** like `cue`. Smitty constructs the clone URL directly from this field — a bare name produces `https://github.com/cue.git` (missing org) and the task fails immediately.
+
+| Correct ✅ | Wrong ❌ |
+|---|---|
+| `tklrstudio/cue` | `cue` |
+
+This rule applies to both `repo` and `spec_repo` parameters.
 
 ---
 
